@@ -6,5 +6,10 @@ import (
 )
 
 func main(){
-	fmt.Println(greetings.Hello(""))
+	message, err := greetings.Hello("Abhishek")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(message)
 }
