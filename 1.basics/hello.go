@@ -1,0 +1,12 @@
+package main
+import "fmt"
+
+// import "rsc.io/quote"
+
+func main() {
+	fmt.Println(Hello())
+}
+
+func Hello() string{
+	return "Hello world"
+}
