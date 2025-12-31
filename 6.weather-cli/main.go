@@ -68,7 +68,7 @@ func main() {
 	}
 
 	location, current, hours := weather.Location, weather.Current , weather.Forecast.Forecastday[0].Hour
-	fmt.Printf("%s, %s: %.0fC, %s\n\n",location.Name, location.Country, current.TempC, current.Condition.Text)
+	fmt.Printf("%s, %s: %.0f°C, %s\n\n",location.Name, location.Country, current.TempC, current.Condition.Text)
 
 	for _, hour := range hours {
 		date := time.Unix(hour.TimeEpoch, 0)
