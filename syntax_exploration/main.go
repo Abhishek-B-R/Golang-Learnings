@@ -1,131 +1,47 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-func main2() {
-	var name string = "Abhi"
-	fmt.Printf("This is my name %s\n",name)
-
-	age := 27
-	fmt.Printf("this is my age %d\n",age)
-
-	var city string
-	city = "Bangalore"
-	fmt.Printf("this is my city : %s\n",city)
-
-	var country,continent string= "India","Asia"
-	fmt.Printf("This is my country %s and this is my continent %s\n",country,continent)
-
-	var (
-		isEmployed bool = true
-		salary int = 50000
-		position string = "developer"
-	)
-
-	fmt.Printf("isemployed : %t this is my salary: %d and this is my position: %s\n",isEmployed,salary,position)
-
-	//zero values
-	var defaultInt int
-	var defaultFloat float64
-	var defaultString string
-	var defaultBool bool
-
-	fmt.Println(defaultInt,defaultFloat,defaultString,defaultBool)
-
-	//constants
-	const pi = 3.14 //if we use it or not, doesn't matter
-
-	const (
-		Jan = iota + 1
-		Feb
-		Mar
-		Apr
-		May
-		Jun
-		Jul
-		Aug
-	)
-
-	fmt.Println(Jan,Feb,Mar,Apr,May,Jun,Jul,Aug)
-	fmt.Println(add(2,3))
-
-	day := "Tuesday"
-	switch day{
-		case "Monday":
-			fmt.Println("start of the week")
-		case "Tuesday","Wednesday","Thursday":
-			fmt.Println("week in progress")
-		case "Friday":
-			fmt.Println("end of the week")
-		default:
-			fmt.Println("Weekend")
-	}
-
-	//loops
-	for i := 0; i < 5; i++{
-		fmt.Println("this is i",i)
-	}
-
-	// no while loop exists
-	counter := 0
-	for counter < 3 {
-		fmt.Println("This is counter", counter)
-		counter++
-	}
-
-	//arrays
-	numbers := [5]int{1,2,3,4,5}
-	fmt.Println(numbers)
-	//  numbersAtInitialization := [...]int{1,2,3,4,5})
-
-	matrix := [2][3]int{
-		{1,2,3},
-		{4,5,6},
-	}
-	fmt.Println(matrix)
-	
-	// slices
-	allNumbers := numbers[:]
-	firstThree := numbers[0:3]
-	fmt.Println(allNumbers,firstThree)
-
-	fruits := []string{"apple","banana","strawberry"}
-	fmt.Printf("There are my fruits %v\n",fruits)
-
-	fruits = append(fruits, "kiwi", "mango")
-	fmt.Printf("these are my fruits with more fruits %v\n",fruits)
-
-	moreFruits := []string{"blueberries","pineapple"}
-	fruits = append(fruits, moreFruits...)
-	fmt.Printf("these are my fruits with more fruits %v\n",fruits)
-
-	for index, value := range fruits{
-		fmt.Printf("%s fruit at index: %d\n",value,index)
-	}
-
-
-	//maps
-	capitalCities := map[string]string{
-		"USA":"Washington D.C.",
-		"India":"New Delhi",
-		"UK":"London",
-	}
-	fmt.Println(capitalCities["USA"])
-	// fmt.Println(capitalCities["Germany"]) //no output
-
-	capital, exists := capitalCities["Germany"]
-	if exists{
-		fmt.Println(capital)
-	}else{
-		fmt.Println("Does not exist for Germany")
-	}
-
-	delete(capitalCities,"UK")
-	fmt.Println(capitalCities)
+type Item struct{
+	Name string
+	Type string
 }
 
-func add(a, b int) int {
-	return a + b
+type Player struct{
+	Name string
+	Inventory []Item
+}
+
+func (p *Player) PickUpItem(item Item){
+	//TODO: Implement function to add an item to inventory
+	p.Inventory = append(p.Inventory, item)
+	fmt.Printf("%s picked up %s\n",p.Name,item.Name)
+}
+
+func (p *Player) DropItem(itemName string){
+	//TODO: Implement function to remove an item from inventory
+	for i := 0; i < len(p.Inventory); i++{
+		if p.Inventory[i].Name == itemName{
+			p.Inventory = append(p.Inventory[:i], p.Inventory[i+1:]...)
+			fmt.Printf("%s dropped %s.\n",p.Name,itemName)
+			break
+		}
+	}
+	fmt.Printf("%s does not have %s in inventory.\n",p.Name,itemName)
+}
+
+func (p *Player) UseItem(itemName string){
+	//TODO: Implement function to use an item
+	for _, item := range p.Inventory {
+		if item.Name == itemName {
+			if item.Type == "portion"{
+				fmt.Printf("%s used %s and feels rejuvenated!\n",p.Name,itemName)
+				p.DropItem(itemName)
+			} else {
+				fmt.Printf("%s used %s.\n", p.Name, itemName)
+			}
+			return
+		}
+	}
+	fmt.Printf("%s does not hae %s in inventory.\n", p.Name, itemName)
 }

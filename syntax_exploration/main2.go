@@ -7,7 +7,7 @@ type Person struct {
 	Age int
 }
 
-func main() {
+func main2() {
 	person := Person{Name: "John", Age: 20}
 	fmt.Printf("This is out person %v\n",person)
 
